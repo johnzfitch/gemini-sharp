@@ -1,0 +1,55 @@
+name: Sync Upstream to Stock
+
+on:
+  schedule:
+    # Run daily at 06:00 UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    # Allow manual trigger
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout stock branch
+        uses: actions/checkout@v4
+        with:
+          ref: stock
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Add upstream remote
+        run: |
+          git remote add upstream https://github.com/google-gemini/gemini-cli.git
+          git fetch upstream main
+
+      - name: Check for new commits
+        id: check
+        run: |
+          UPSTREAM_SHA=$(git rev-parse upstream/main)
+          STOCK_SHA=$(git rev-parse HEAD)
+          if [ "$UPSTREAM_SHA" != "$STOCK_SHA" ]; then
+            echo "has_updates=true" >> "$GITHUB_OUTPUT"
+            echo "New commits found in upstream"
+            git log --oneline HEAD..upstream/main | head -20
+          else
+            echo "has_updates=false" >> "$GITHUB_OUTPUT"
+            echo "Stock branch is up to date with upstream"
+          fi
+
+      - name: Merge upstream changes
+        if: steps.check.outputs.has_updates == 'true'
+        run: |
+          git merge upstream/main --no-edit -m "chore: sync stock with upstream google-gemini/gemini-cli"
+
+      - name: Push to stock branch
+        if: steps.check.outputs.has_updates == 'true'
+        run: |
+          git push origin stock
