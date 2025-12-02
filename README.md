@@ -14,19 +14,22 @@ most direct path from your prompt to our model.
 
 Learn all about Gemini CLI in our [documentation](https://geminicli.com/docs/).
 
-## 🚀 Why Gemini CLI?
+## <img src="icons/rocket.png" width="24" height="24"> Why Gemini CLI?
 
-- **🎯 Free tier**: 60 requests/min and 1,000 requests/day with personal Google
-  account.
-- **🧠 Powerful Gemini 2.5 Pro**: Access to 1M token context window.
-- **🔧 Built-in tools**: Google Search grounding, file operations, shell
-  commands, web fetching.
-- **🔌 Extensible**: MCP (Model Context Protocol) support for custom
-  integrations.
-- **💻 Terminal-first**: Designed for developers who live in the command line.
-- **🛡️ Open source**: Apache 2.0 licensed.
+- **<img src="icons/target.png" width="16" height="16"> Free tier**: 60
+  requests/min and 1,000 requests/day with personal Google account.
+- **<img src="icons/lightbulb.png" width="16" height="16"> Powerful Gemini 2.5
+  Pro**: Access to 1M token context window.
+- **<img src="icons/wrench.png" width="16" height="16"> Built-in tools**: Google
+  Search grounding, file operations, shell commands, web fetching.
+- **<img src="icons/plugin.png" width="16" height="16"> Extensible**: MCP (Model
+  Context Protocol) support for custom integrations.
+- **<img src="icons/console.png" width="16" height="16"> Terminal-first**:
+  Designed for developers who live in the command line.
+- **<img src="icons/shield.png" width="16" height="16"> Open source**: Apache
+  2.0 licensed.
 
-## 📦 Installation
+## <img src="icons/box.png" width="24" height="24"> Installation
 
 ### Pre-requisites before installation
 
@@ -88,7 +91,7 @@ npm install -g @google/gemini-cli@latest
 npm install -g @google/gemini-cli@nightly
 ```
 
-## 📋 Key Features
+## <img src="icons/clipboard.png" width="24" height="24"> Key Features
 
 ### Code Understanding & Generation
 
@@ -126,14 +129,14 @@ Integrate Gemini CLI directly into your GitHub workflows with
 - **Custom Workflows**: Build automated, scheduled and on-demand workflows
   tailored to your team's needs
 
-## 🔐 Authentication Options
+## <img src="icons/lock.png" width="24" height="24"> Authentication Options
 
 Choose the authentication method that best fits your needs:
 
 ### Option 1: Login with Google (OAuth login using your Google Account)
 
-**✨ Best for:** Individual developers as well as anyone who has a Gemini Code
-Assist License. (see
+**<img src="icons/star.png" width="16" height="16"> Best for:** Individual
+developers as well as anyone who has a Gemini Code Assist License. (see
 [quota limits and terms of service](https://cloud.google.com/gemini/docs/quotas)
 for details)
 
@@ -160,7 +163,8 @@ gemini
 
 ### Option 2: Gemini API Key
 
-**✨ Best for:** Developers who need specific model control or paid tier access
+**<img src="icons/star.png" width="16" height="16"> Best for:** Developers who
+need specific model control or paid tier access
 
 **Benefits:**
 
@@ -176,7 +180,8 @@ gemini
 
 ### Option 3: Vertex AI
 
-**✨ Best for:** Enterprise teams and production workloads
+**<img src="icons/star.png" width="16" height="16"> Best for:** Enterprise teams
+and production workloads
 
 **Benefits:**
 
@@ -194,7 +199,7 @@ gemini
 For Google Workspace accounts and other authentication methods, see the
 [authentication guide](./docs/get-started/authentication.md).
 
-## 🚀 Getting Started
+## <img src="icons/rocket.png" width="24" height="24"> Getting Started
 
 ### Basic Usage
 
@@ -257,7 +262,7 @@ gemini
 > Give me a summary of all of the changes that went in yesterday
 ```
 
-## 📚 Documentation
+## <img src="icons/book.png" width="24" height="24"> Documentation
 
 ### Getting Started
 
@@ -331,7 +336,7 @@ custom tools:
 See the [MCP Server Integration guide](./docs/tools/mcp-server.md) for setup
 instructions.
 
-## 🤝 Contributing
+## <img src="icons/handshake.png" width="24" height="24"> Contributing
 
 We welcome contributions! Gemini CLI is fully open source (Apache 2.0), and we
 encourage the community to:
@@ -347,7 +352,7 @@ standards, and how to submit pull requests.
 Check our [Official Roadmap](https://github.com/orgs/google-gemini/projects/11)
 for planned features and priorities.
 
-## 📖 Resources
+## <img src="icons/book.png" width="24" height="24"> Resources
 
 - **[Official Roadmap](./ROADMAP.md)** - See what's coming next.
 - **[Changelog](./docs/changelogs/index.md)** - See recent notable updates.
@@ -362,7 +367,7 @@ for planned features and priorities.
 
 See the [Uninstall Guide](docs/cli/uninstall.md) for removal instructions.
 
-## 📄 Legal
+## <img src="icons/document.png" width="24" height="24"> Legal
 
 - **License**: [Apache License 2.0](LICENSE)
 - **Terms of Service**: [Terms & Privacy](./docs/tos-privacy.md)
@@ -371,5 +376,5 @@ See the [Uninstall Guide](docs/cli/uninstall.md) for removal instructions.
 ---
 
 <p align="center">
-  Built with ❤️ by Google and the open source community
+  Built with <img src="icons/heart.png" width="16" height="16"> by Google and the open source community
 </p>
