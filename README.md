@@ -14,7 +14,7 @@ most direct path from your prompt to our model.
 
 Learn all about Gemini CLI in our [documentation](https://geminicli.com/docs/).
 
-## <img src="icons/rocket.png" width="24" height="24"> Why Gemini CLI?
+## <img src="icons/lightning.png" width="24" height="24"> Why Gemini CLI?
 
 - **<img src="icons/target.png" width="16" height="16"> Free tier**: 60
   requests/min and 1,000 requests/day with personal Google account.
@@ -199,7 +199,7 @@ gemini
 For Google Workspace accounts and other authentication methods, see the
 [authentication guide](./docs/get-started/authentication.md).
 
-## <img src="icons/rocket.png" width="24" height="24"> Getting Started
+## <img src="icons/compass.png" width="24" height="24"> Getting Started
 
 ### Basic Usage
 
