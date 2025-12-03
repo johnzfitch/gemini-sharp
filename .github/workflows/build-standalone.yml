@@ -1,0 +1,119 @@
+name: Build Standalone Executables
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (e.g., v1.0.0)'
+        required: false
+        default: 'dev'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: linux-x64
+            artifact: gsharp-linux-x64
+          - os: ubuntu-24.04-arm
+            platform: linux-arm64
+            artifact: gsharp-linux-arm64
+          - os: macos-latest
+            platform: mac-arm64
+            artifact: gsharp-mac-arm64
+          - os: macos-13
+            platform: mac-x64
+            artifact: gsharp-mac-x64
+          - os: windows-latest
+            platform: win-x64
+            artifact: gsharp-win-x64
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build bundle
+        run: npm run bundle
+
+      - name: Build single-file executable
+        env:
+          BUILD_PLATFORM: ${{ matrix.platform }}
+        run: npm run build:single -- "$BUILD_PLATFORM"
+
+      - name: Create archive (Unix)
+        if: runner.os != 'Windows'
+        env:
+          ARTIFACT_NAME: ${{ matrix.artifact }}
+        run: |
+          cd dist-single
+          tar -czvf "../$ARTIFACT_NAME.tar.gz" */*
+
+      - name: Create archive (Windows)
+        if: runner.os == 'Windows'
+        env:
+          ARTIFACT_NAME: ${{ matrix.artifact }}
+        shell: pwsh
+        run: |
+          cd dist-single
+          Compress-Archive -Path "*\*" -DestinationPath "..\$env:ARTIFACT_NAME.zip"
+
+      - name: Upload artifact (Unix)
+        if: runner.os != 'Windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: ${{ matrix.artifact }}.tar.gz
+
+      - name: Upload artifact (Windows)
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: ${{ matrix.artifact }}.zip
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          name: Gemini Sharp ${{ github.ref_name }}
+          draft: false
+          prerelease: ${{ contains(github.ref_name, 'beta') || contains(github.ref_name, 'alpha') }}
+          generate_release_notes: true
+          files: |
+            artifacts/**/*.tar.gz
+            artifacts/**/*.zip
